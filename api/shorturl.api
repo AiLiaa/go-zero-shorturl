@@ -1,0 +1,45 @@
+syntax = "v1"
+
+info (
+	title: // TODO: add title
+	desc: // TODO: add description
+	author: ""
+	email: "1067550651@qq.com"
+)
+
+type (
+	expandReq {
+		Shorten string `form:"shorten"`
+	}
+
+	expandResp {
+		Url string `json:"url"`
+	}
+)
+
+type (
+	shortenReq {
+		Url string `form:"url"`
+	}
+
+	shortenResp {
+		Shorten string `json:"shorten"`
+	}
+)
+
+//service 用来定义 get/post/head/delete 等 api 请求
+//定义了 service 名字
+service shorturl-api {
+	//部分用来定义 server 端用到的属性
+	@server(
+		//定义服务端 handler 名字
+		handler: ShortenHandler
+	)
+	//定义了 get 方法的路由、请求参数、返回参数等
+	get /shorten(shortenReq) returns(shortenResp)
+
+	@server(
+		handler: ExpandHandler
+	)
+	get /expand(expandReq) returns(expandResp)
+}

@@ -1,0 +1,16 @@
+Name: transform.rpc
+
+# 解决问题：使用Etcd服务发现,api启动失败 但是transform.rpc成功注册
+#rpc dial: etcd://localhost:2379/transform.rpc, error: context deadline exceeded, make sure rpc service "transform.rpc" is already started
+#ListenOn: 0.0.0.0:8080
+ListenOn: 127.0.0.1:8081
+
+Etcd:
+  Hosts:
+  - 127.0.0.1:2379
+  Key: transform.rpc
+
+DataSource: root:root@tcp(localhost:3306)/gozero
+Table: shorturl
+Cache:
+  - Host: localhost:6379
